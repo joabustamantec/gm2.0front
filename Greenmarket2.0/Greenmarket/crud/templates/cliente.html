@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>perfil {{request.user.tipo_perfil}}</title>
+</head>
+
+<body>
+    <h1>Perfil del Cliente</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Guardar">
+
+
+        <a href="/">Inicio</a>
+        <script src="{% static 'js/logout_timer.js' %}"></script>
+</body>

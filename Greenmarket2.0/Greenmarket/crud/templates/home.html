@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de inicio</title>
+</head>
+
+<body>
+    {% if request.user.is_authenticated %}
+    {{ request.user.username }}
+    {{ request.user.tipo_perfil }}
+
+    {% if request.user.tipo_perfil == 'cliente' %}
+    {% if tiene_perfil_cliente %}
+    <li>
+        <a href="{% url 'Cliente' %}">Perfil</a>
+    </li>
+    <li>
+        <a href="{% url 'carro' %}">Productos</a>
+    </li>
+
+    {% else %}
+    <li>
+        <a href="{% url 'perfilC' %}">Crear perfil de cliente</a>
+    </li>
+    {% endif %}
+    {% endif %}
+
+    {% if request.user.tipo_perfil == 'proveedor' %}
+    {% if tiene_perfil_proveedor %}
+    <li>
+        <a href="{% url 'Proveedor' %}">Perfil de proveedor</a>
+    </li>
+    <li>
+        <a href="{% url 'listar_productos' %}">Lista de productos </a>
+    </li>
+    <li>
+        <a href="{% url 'tiendaP' %}">Productos</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'perfilP' %}">Crear perfil de proveedor</a>
+    </li>
+    {% endif %}
+    {% endif %}
+
+    <li>
+        <a href="{% url 'cerrarsesion' %}">Cerrar sesión</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'iniciosesion' %}">Iniciar sesión</a>
+    </li>
+    <li>
+        <a href="{% url 'registro' %}">Registrarse</a>
+    </li>
+    {% endif %}
+    <script src="{% static 'js/logout_timer.js' %}"></script>
+</body>
+
+</html>
